@@ -1,0 +1,1359 @@
+
+====================================================================================================
+Issue #14419: [Bug]: OpenRouter configuration still appears to consume OpenHands credits
+====================================================================================================
+URL: https://github.com/OpenHands/OpenHands/issues/14419
+State: CLOSED
+Labels: ['bug']
+Quality flags: []
+
+--------------------------------------------------------------------------------
+Completeness Score
+--------------------------------------------------------------------------------
+Total: 100 / 100
+Grade: A
+Decision: USE_FOR_RUNTIME_LEARNING
+Parts:
+  - problem: 20
+  - reproduction_context: 15
+  - pr_selection: 20
+  - solution_summary: 20
+  - feedback: 15
+  - cleanliness: 10
+
+--------------------------------------------------------------------------------
+Problem
+--------------------------------------------------------------------------------
+[Bug]: OpenRouter configuration still appears to consume OpenHands credits
+
+After configuring OpenRouter as the LLM provider, requests still appear to be routed through OpenHands credits/inference instead of directly through my OpenRouter account.
+
+--------------------------------------------------------------------------------
+Expected Behavior
+--------------------------------------------------------------------------------
+When OpenRouter is configured:
+requests should go directly to OpenRouter
+usage should count against my OpenRouter account only
+OpenHands credits/inference should not be used
+
+--------------------------------------------------------------------------------
+Actual Behavior
+--------------------------------------------------------------------------------
+Even after setting the OpenRouter API key and model, the app/UI still indicates that OpenHands credits are being used.
+
+--------------------------------------------------------------------------------
+Reproduction Steps
+--------------------------------------------------------------------------------
+1. Configure OpenRouter API key
+2. Set OpenRouter-compatible model
+3. Start a chat/task
+4. Observe that usage still appears tied to OpenHands credits
+
+--------------------------------------------------------------------------------
+Selected PR
+--------------------------------------------------------------------------------
+selected_pr: 14437
+title: fix: avoid rewriting provider credit errors
+merged_at: 2026-05-19T18:55:34Z
+selection_score: 19.0
+selection_reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:2.0', 'changed_files_match_issue_domain:4.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Candidate PR Scores
+--------------------------------------------------------------------------------
+PR #14437: score=19.0 state=MERGED merged_at=2026-05-19T18:55:34Z
+  title: fix: avoid rewriting provider credit errors
+  reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:2.0', 'changed_files_match_issue_domain:4.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Fix Summary
+--------------------------------------------------------------------------------
+tighten the frontend budget/credit error classifier so provider-side credit messages are not rewritten as OpenHands billing failures; keep true OpenHands budget and credit-limit messages mapped to the friendly billing banner; add regression coverage for OpenRouter/provider credit text
+
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+  - frontend/__tests__/utils/error-handler.test.ts
+  - frontend/src/utils/error-handler.ts
+
+--------------------------------------------------------------------------------
+Tests
+--------------------------------------------------------------------------------
+  - - `npx -y -p node@22 -p npm@10.5.0 npm run test -- __tests__/utils/error-handler.test.ts`
+  - - `npx -y -p node@22 -p npm@10.5.0 npm run lint:fix -- --quiet` (passes with existing unrelated warnings)
+  - - `npx -y -p node@22 -p npm@10.5.0 npm run build`
+
+--------------------------------------------------------------------------------
+Feedback Count = 6
+--------------------------------------------------------------------------------
+
+[1] source=issue_comment author=DisabledAbel state=None
+Please merge the PR above
+
+[2] source=pr_review author=DisabledAbel state=APPROVED
+This will fixed my issue https://github.com/OpenHands/OpenHands/issues/14419
+
+[3] source=pr_review author=neubig state=APPROVED
+Thank you, this looks like an improvement!
+
+[4] source=pr_comment author=github-actions state=None
+<!-- pr-readiness-confirm -->
+👋 Thanks for opening this PR!
+
+Your PR is marked for review. Can you confirm with a 👍 reaction **on this comment** or a reply that this PR is ready to review?
+
+> If no confirmation is received within 7 days, this PR will be converted back to a draft.
+
+[5] source=pr_comment author=Kage18 state=None
+Ready for review. Focused classifier fix with regression coverage so provider-side credit/balance errors are not rewritten as OpenHands billing issues.
+
+[6] source=pr_comment author=DisabledAbel state=None
+This will fix my issue https://github.com/OpenHands/OpenHands/issues/14419
+
+Thank you @Kage18
+
+====================================================================================================
+Issue #13969: [Bug]: tavily settings gets reset when you go from advanced to basic
+====================================================================================================
+URL: https://github.com/OpenHands/OpenHands/issues/13969
+State: CLOSED
+Labels: ['bug', 'new-settings']
+Quality flags: []
+
+--------------------------------------------------------------------------------
+Completeness Score
+--------------------------------------------------------------------------------
+Total: 96 / 100
+Grade: A
+Decision: USE_FOR_RUNTIME_LEARNING
+Parts:
+  - problem: 20
+  - reproduction_context: 11
+  - pr_selection: 20
+  - solution_summary: 20
+  - feedback: 15
+  - cleanliness: 10
+
+--------------------------------------------------------------------------------
+Problem
+--------------------------------------------------------------------------------
+[Bug]: tavily settings gets reset when you go from advanced to basic
+
+If you have settings filled out in Advanced that includes tavily, then change to basic, you lose tavily.
+
+--------------------------------------------------------------------------------
+Expected Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Actual Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Reproduction Steps
+--------------------------------------------------------------------------------
+1. Go to Advanced and fill out LLM and Tavily keys
+2. Then go to Basic and choose something and save
+3. Go back to advanced and you've lost Tavily key
+
+https://github.com/user-attachments/assets/7c17f9d0-6f45-44e2-9151-a1de357b55eb
+
+--------------------------------------------------------------------------------
+Selected PR
+--------------------------------------------------------------------------------
+selected_pr: 14000
+title: Move Tavily search key to MCP settings
+merged_at: 2026-04-20T13:45:03Z
+selection_score: 23.0
+selection_reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:6.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Candidate PR Scores
+--------------------------------------------------------------------------------
+PR #14000: score=23.0 state=MERGED merged_at=2026-04-20T13:45:03Z
+  title: Move Tavily search key to MCP settings
+  reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:6.0', 'temporal_score:2.0']
+PR #13977: score=11.0 state=CLOSED merged_at=None
+  title: Warn before resetting hidden SDK settings
+  reasons: ['closed_unmerged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:6.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Fix Summary
+--------------------------------------------------------------------------------
+move the Tavily `search_api_key` UI out of LLM settings and into a dedicated MCP settings section; keep LLM settings saves scoped to LLM-owned fields so they no longer clear the MCP-owned Tavily key; add regression coverage for the MCP Tavily save flow and for the LLM page no longer rendering or updating the Tavily field
+
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+  - .gitattributes
+  - AGENTS.md
+  - frontend/__tests__/routes/llm-settings.test.tsx
+  - frontend/__tests__/routes/mcp-settings.test.tsx
+  - frontend/src/i18n/declaration.ts
+  - frontend/src/i18n/translation.json
+  - frontend/src/routes/llm-settings.tsx
+  - frontend/src/routes/mcp-settings.tsx
+
+--------------------------------------------------------------------------------
+Tests
+--------------------------------------------------------------------------------
+  - - cd frontend && npm run test -- __tests__/routes/llm-settings.test.tsx __tests__/routes/mcp-settings.test.tsx
+  - - cd frontend && npm run lint:fix && npm run build
+  - Fixes #13969
+  - _AI-generated draft PR created by OpenHands on behalf of the user._
+  - ---
+  - - Captured from a local `make run` session showing the general MCP server pane above the built-in Tavily search pane.
+
+--------------------------------------------------------------------------------
+Feedback Count = 6
+--------------------------------------------------------------------------------
+
+[1] source=issue_comment author=neubig state=None
+This is actually done.
+
+[2] source=pr_review author=all-hands-bot state=COMMENTED
+🟢 **Good taste** - Clean architectural separation that fixes a real bug. The Tavily search key now lives in MCP settings where it belongs, preventing accidental clearing when saving LLM settings.
+
+**[RISK ASSESSMENT]**
+- [Overall PR] ⚠️ Risk Assessment: 🟢 LOW
+
+Pure frontend refactoring with no backend changes, good test coverage, and backward compatibility. Fixes a real bug where LLM settings saves were clearing the MCP-owned Tavily key.
+
+**VERDICT:**
+✅ **Worth merging** - Solid architecture, well tested, solves real problem
+
+**KEY INSIGHT:**
+Moving ownership boundaries from implementation (which fields to save) to UI structure (which page owns which settings) prevents accidental data loss a
+...[TRUNCATED]...
+
+[3] source=pr_review author=hieptl state=APPROVED
+Thank you! 🙏
+
+[4] source=pr_comment author=neubig state=None
+@openhands try one more time to follow the "run openhands with openhands" directions in this repo to bring up an instance of openhands, take a screenshot, upload it to the ".pr" directory on this repo, and link it in the PR description to demonstrate what the interface looks like. If it does not look as requested, then make fixes until it does.
+
+[5] source=pr_comment author=neubig state=None
+I reran OpenHands locally following the repo's `make build` / `make run` flow, captured a fresh screenshot of the MCP settings page, committed it to `.pr/screenshots/14000-mcp-settings-layout.png`, and linked it in the PR description.
+
+What I verified in the live UI:
+- the general MCP server pane appears above the built-in Tavily search pane
+- the page renders as expected in a local `make run` session
+
+Changes pushed:
+- commit `a95688013` — adds the screenshot artifact and a short AGENTS troubleshooting note for local runs in this sandbox
+
+_This comment was created by an AI assistant (OpenHands) on behalf of the user._
+
+[6] source=pr_comment author=openhands-ai state=None
+Since my last summary, there have been no additional code or PR changes.
+
+Final status:
+
+- [x] Request fully addressed:
+  - OpenHands was brought up locally using the repo’s run flow.
+  - A fresh screenshot of the MCP settings UI was captured.
+  - The screenshot was added under `.pr/screenshots/14000-mcp-settings-layout.png`.
+  - The PR branch was updated and pushed.
+  - The PR description was updated to link/embed the screenshot.
+  - A PR comment was posted summarizing the verification.
+
+- [x] Instructions followed faithfully:
+  - Verified the live UI rather than relying only on static code inspection.
+  - Confirmed the requested layout: general MCP pane above the Tavily pane.
+  - Used the 
+...[TRUNCATED]...
+
+====================================================================================================
+Issue #14096: Integrations page is blank when GITHUB_APP_SLUG is not set (Replicated/self-hosted)
+====================================================================================================
+URL: https://github.com/OpenHands/OpenHands/issues/14096
+State: CLOSED
+Labels: []
+Quality flags: []
+
+--------------------------------------------------------------------------------
+Completeness Score
+--------------------------------------------------------------------------------
+Total: 96 / 100
+Grade: A
+Decision: USE_FOR_RUNTIME_LEARNING
+Parts:
+  - problem: 20
+  - reproduction_context: 13
+  - pr_selection: 20
+  - solution_summary: 20
+  - feedback: 13
+  - cleanliness: 10
+
+--------------------------------------------------------------------------------
+Problem
+--------------------------------------------------------------------------------
+Integrations page is blank when GITHUB_APP_SLUG is not set (Replicated/self-hosted)
+
+The Settings > Integrations page appears completely blank in Replicated/self-hosted deployments when `GITHUB_APP_SLUG` is not configured, even when other providers like GitLab are properly set up.
+
+## Root Cause
+
+In `frontend/src/routes/git-settings.tsx`, the condition for rendering the GitLab, Slack, and other integration sections is:
+
+```typescript
+const shouldRenderExternalConfigureButtons = isSaas && config?.github_app_slug;
+```
+
+This means **all** integration UI elements (including GitLab) are hidden unless `github_app_slug` is set, even though GitLab integration is completely independent of GitHub App configuration.
+
+--------------------------------------------------------------------------------
+Expected Behavior
+--------------------------------------------------------------------------------
+The GitLab integration section should be visible when:
+- The app is in SaaS mode (`isSaas = true`)
+- GitLab is configured as a provider
+
+It should not require `github_app_slug` to be set.
+
+--------------------------------------------------------------------------------
+Actual Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Reproduction Steps
+--------------------------------------------------------------------------------
+1. Deploy OpenHands via Replicated with GitLab OAuth configured (no GitHub App)
+2. Log in with GitLab
+3. Navigate to Settings > Integrations
+4. Observe: The page is blank
+
+## Workaround
+
+Setting `GITHUB_APP_SLUG` to any value (e.g., `openhands-ai`) on the openhands deployment makes the integrations page visible:
+
+```bash
+kubectl set env deployment/openhands -n openhands GITHUB_APP_SLUG=openhands-ai
+```
+
+--------------------------------------------------------------------------------
+Selected PR
+--------------------------------------------------------------------------------
+selected_pr: 14097
+title: APP-1325: show GitLab/Slack sections without GitHub App configured
+merged_at: 2026-04-24T19:10:39Z
+selection_score: 21.0
+selection_reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:4.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Candidate PR Scores
+--------------------------------------------------------------------------------
+PR #14097: score=21.0 state=MERGED merged_at=2026-04-24T19:10:39Z
+  title: APP-1325: show GitLab/Slack sections without GitHub App configured
+  reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:4.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Fix Summary
+--------------------------------------------------------------------------------
+APP-1325: show GitLab/Slack sections without GitHub App configured
+
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+  - frontend/__tests__/hooks/use-websocket.test.ts
+  - frontend/__tests__/routes/git-settings.test.tsx
+  - frontend/src/api/option-service/option.types.ts
+  - frontend/src/mocks/settings-handlers.ts
+  - frontend/src/routes/git-settings.tsx
+  - openhands/app_server/web_client/default_web_client_config_injector.py
+  - openhands/app_server/web_client/web_client_models.py
+  - tests/unit/app_server/test_default_web_client_config_injector.py
+
+--------------------------------------------------------------------------------
+Tests
+--------------------------------------------------------------------------------
+  - Tested on a Replicated self-hosted deployment with GitLab OAuth configured but no GitHub App:
+  - - Before: Integrations page was completely blank
+  - - After: GitLab section shows correctly with connection status and webhook manager
+  - ---
+  - _This PR was created by an AI assistant (OpenHands) on behalf of the user._
+  - ---
+  - To run this PR locally, use the following command:
+  - GUI with Docker:
+  - ```
+  - docker run -it --rm   -p 3000:3000   -v /var/run/docker.sock:/var/run/docker.sock   --add-host host.docker.internal:host-gateway   --name openhands-app-1ecffcb   docker.openhands.dev/openhands/openhands:1ecffcb
+  - ```
+
+--------------------------------------------------------------------------------
+Feedback Count = 26
+--------------------------------------------------------------------------------
+
+[1] source=pr_review author=aivong-openhands state=COMMENTED
+[NO BODY]
+
+[2] source=pr_review author=openhands-ai state=COMMENTED
+[NO BODY]
+
+[3] source=pr_review author=aivong-openhands state=COMMENTED
+[NO BODY]
+
+[4] source=pr_review author=openhands-ai state=COMMENTED
+[NO BODY]
+
+[5] source=pr_review author=all-hands-bot state=APPROVED
+✅ **Clean fix** - Correctly separates render conditions for GitHub, GitLab, and Slack sections.
+
+**Tests**: Comprehensive coverage of all scenarios (SaaS with/without GitHub App, OSS mode). Logic is sound.
+
+**Optional Enhancement**: Consider adding a screenshot in an Evidence section showing the GitLab section rendering in the self-hosted deployment to support the Before/After claims.
+
+**[RISK ASSESSMENT]**
+🟢 **LOW** - Frontend-only change, well-tested, fixes real user-facing bug with no breaking changes or security implications.
+
+**VERDICT**: ✅ Worth merging
+
+[6] source=pr_review author=all-hands-bot state=APPROVED
+**Taste Rating**: 🟢 Good taste - Clean separation of concerns that fixes a real bug.
+
+**[RISK ASSESSMENT]**
+🟢 **LOW** - Frontend-only change with comprehensive test coverage. Fixes user-facing bug where GitLab/Slack sections were incorrectly hidden in SaaS mode without GitHub App configured. The logic correctly decouples each integration section's render condition. No breaking changes.
+
+**VERDICT**: ✅ Worth merging - Solid fix with proper test coverage.
+
+**KEY INSIGHT**: Splitting the monolithic `shouldRenderExternalConfigureButtons` into section-specific conditions correctly models the independent requirements of each integration (GitHub needs app slug, GitLab/Slack just need SaaS mode).
+
+[7] source=pr_review author=malhotra5 state=COMMENTED
+[NO BODY]
+
+[8] source=pr_review author=aivong-openhands state=COMMENTED
+[NO BODY]
+
+====================================================================================================
+Issue #14153: [Bug]: Cannot edit or remove integrations tokens from local GUI
+====================================================================================================
+URL: https://github.com/OpenHands/OpenHands/issues/14153
+State: CLOSED
+Labels: ['bug']
+Quality flags: []
+
+--------------------------------------------------------------------------------
+Completeness Score
+--------------------------------------------------------------------------------
+Total: 96 / 100
+Grade: A
+Decision: USE_FOR_RUNTIME_LEARNING
+Parts:
+  - problem: 20
+  - reproduction_context: 11
+  - pr_selection: 20
+  - solution_summary: 20
+  - feedback: 15
+  - cleanliness: 10
+
+--------------------------------------------------------------------------------
+Problem
+--------------------------------------------------------------------------------
+[Bug]: Cannot edit or remove integrations tokens from local GUI
+
+Cannot edit or remove integrations tokens from local GUI. See Video
+
+https://github.com/user-attachments/assets/ab4a6221-6be8-4402-8089-4b0f8228db75
+
+--------------------------------------------------------------------------------
+Expected Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Actual Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Reproduction Steps
+--------------------------------------------------------------------------------
+1. Go to settings and try changing tokens or disconnecting tokens
+
+--------------------------------------------------------------------------------
+Selected PR
+--------------------------------------------------------------------------------
+selected_pr: 14155
+title: fix: restore local integration token removal in OSS settings
+merged_at: 2026-04-27T16:59:51Z
+selection_score: 23.0
+selection_reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:6.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Candidate PR Scores
+--------------------------------------------------------------------------------
+PR #14155: score=23.0 state=MERGED merged_at=2026-04-27T16:59:51Z
+  title: fix: restore local integration token removal in OSS settings
+  reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:6.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Fix Summary
+--------------------------------------------------------------------------------
+switch the local integrations disconnect action to `DELETE /api/v1/secrets/git-providers`; invalidate settings after deletion so the integrations UI refreshes without a full logout/reload; add regression tests for the new delete mutation and the integrations settings route
+
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+  - AGENTS.md
+  - frontend/__tests__/hooks/mutation/use-delete-git-providers.test.tsx
+  - frontend/__tests__/routes/git-settings.test.tsx
+  - frontend/src/api/secrets-service.ts
+  - frontend/src/hooks/mutation/use-delete-git-providers.ts
+  - frontend/src/routes/git-settings.tsx
+
+--------------------------------------------------------------------------------
+Tests
+--------------------------------------------------------------------------------
+  - 1. `cd frontend && npm install`
+  - 2. `cd frontend && npm run test -- use-delete-git-providers git-settings`
+  - 3. `cd frontend && npm run lint:fix && npm run build`
+  - 4. In local GUI, add an integration token, then use **Disconnect Tokens** from `/settings/integrations` and confirm the connected state clears.
+
+--------------------------------------------------------------------------------
+Feedback Count = 4
+--------------------------------------------------------------------------------
+
+[1] source=issue_comment author=openhands-ai state=None
+Final summary:
+
+- [x] The request was fully addressed.
+- [x] I fixed the local GUI regression preventing integration tokens from being removed.
+- [x] I added regression tests, ran the requested frontend tests, lint/build checks, and pre-commit validation.
+- [x] I created a branch, committed the fix, pushed it, and opened a draft PR.
+
+New/changed files:
+- `frontend/src/routes/git-settings.tsx`
+  - Switched the Disconnect Tokens action from the logout flow to a dedicated V1 delete flow.
+- `frontend/src/api/secrets-service.ts`
+  - Added `deleteGitProviders()` calling `DELETE /api/v1/secrets/git-providers`.
+- `frontend/src/hooks/mutation/use-delete-git-providers.ts`
+  - New mutation hook that de
+...[TRUNCATED]...
+
+[2] source=pr_review author=all-hands-bot state=APPROVED
+🟢 **Good taste** — Clean bug fix that restores broken functionality.
+
+**Summary**: This properly routes the disconnect tokens action through the correct V1 secrets endpoint instead of the legacy logout flow. The implementation follows the correct architectural pattern (TanStack Query → API client → REST endpoint), includes appropriate tests, and has been manually verified with a browser QA GIF.
+
+**Highlights**:
+- ✅ Correct data flow: UI → `useDeleteGitProviders` hook → `SecretsService.deleteGitProviders()` → API
+- ✅ Proper query invalidation for UI refresh
+- ✅ Loading state (`isDisconnecting`) prevents double-clicks
+- ✅ Error handling and user feedback
+- ✅ Tests cover both the mutation hook 
+...[TRUNCATED]...
+
+[3] source=pr_review author=malhotra5 state=APPROVED
+LGTM
+
+[4] source=pr_comment author=mamoodi state=None
+Tested this locally and seems to be working.
+
+====================================================================================================
+Issue #13971: [Bug]: Basic and Advanced for "Verification" is the same
+====================================================================================================
+URL: https://github.com/OpenHands/OpenHands/issues/13971
+State: CLOSED
+Labels: ['bug', 'new-settings']
+Quality flags: []
+
+--------------------------------------------------------------------------------
+Completeness Score
+--------------------------------------------------------------------------------
+Total: 94 / 100
+Grade: A
+Decision: USE_FOR_RUNTIME_LEARNING
+Parts:
+  - problem: 20
+  - reproduction_context: 11
+  - pr_selection: 20
+  - solution_summary: 20
+  - feedback: 13
+  - cleanliness: 10
+
+--------------------------------------------------------------------------------
+Problem
+--------------------------------------------------------------------------------
+[Bug]: Basic and Advanced for "Verification" is the same
+
+There is no difference between Basic/Advanced of "Verification" settings.
+
+--------------------------------------------------------------------------------
+Expected Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Actual Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Reproduction Steps
+--------------------------------------------------------------------------------
+1. Go to Settings Verificaiton
+2. Toggle between basic and advanced
+
+--------------------------------------------------------------------------------
+Selected PR
+--------------------------------------------------------------------------------
+selected_pr: 13978
+title: Refactor verification settings to use schema rendering
+merged_at: 2026-04-25T15:22:23Z
+selection_score: 22.2
+selection_reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:3.2', 'changed_files_match_issue_domain:6.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Candidate PR Scores
+--------------------------------------------------------------------------------
+PR #13978: score=22.2 state=MERGED merged_at=2026-04-25T15:22:23Z
+  title: Refactor verification settings to use schema rendering
+  reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:3.2', 'changed_files_match_issue_domain:6.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Fix Summary
+--------------------------------------------------------------------------------
+refactor the verification settings page to use generic schema-driven SDK rendering instead of bespoke confirmation/security-analyzer controls; update frontend mocks and route coverage so `confirmation_mode` is treated as a critical verification field in the basic view; note: this PR no longer pins the unreleased SDK branch; `confirmation_mode` will become visible in Basic once the next SDK release ships the `ConversationSettings.confirmation_mode` prominence change
+
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+  - .pr/gifs/13971-verification-basic-vs-advanced.gif
+  - frontend/__tests__/routes/verification-settings.test.tsx
+  - frontend/src/mocks/settings-handlers.ts
+  - frontend/src/routes/verification-settings.tsx
+
+--------------------------------------------------------------------------------
+Tests
+--------------------------------------------------------------------------------
+  - - cd frontend && npm run test -- __tests__/routes/verification-settings.test.tsx __tests__/utils/sdk-settings-schema.test.ts
+  - - cd frontend && npm run lint:fix && npm run build
+  - Related to #13971.
+  - This PR prepares the OpenHands-side rendering for the SDK change, but it does not by itself close #13971 until the next SDK release includes the `confirmation_mode` prominence update.
+  - _AI-generated draft PR created by OpenHands on behalf of the user._
+  - ---
+
+--------------------------------------------------------------------------------
+Feedback Count = 6
+--------------------------------------------------------------------------------
+
+[1] source=pr_review author=all-hands-bot state=COMMENTED
+🟡 **Acceptable** - Clean refactor with excellent simplification, but requires SDK release coordination.
+
+**KEY INSIGHT**: This PR exemplifies "good taste" by eliminating 50+ lines of special-case state management in favor of declarative schema-driven rendering—a textbook example of simplification through better data structures.
+
+[2] source=pr_review author=all-hands-bot state=APPROVED
+🟢 **Good taste** - Exemplary simplification through schema-driven design.
+
+**[RISK ASSESSMENT]**
+⚠️ Risk Level: 🟡 MEDIUM
+
+Clean refactor with no code quality issues. Risk stems entirely from SDK release coordination: frontend depends on `confirmation_mode` prominence upgrade that ships in next SDK release. Mock changes ensure tests pass, but production Basic view won't show `confirmation_mode` until SDK update deploys.
+
+**Mitigation**: PR description clearly documents dependency; deployment should coordinate SDK + frontend releases.
+
+✅ **VERDICT**: Approve - Code is production-ready; coordinate SDK release timing.
+
+**KEY INSIGHT**: Eliminates 50+ lines of special-case state management in fav
+...[TRUNCATED]...
+
+[3] source=pr_comment author=github-actions state=None
+<!-- pr-artifacts-notice -->
+📁 **PR Artifacts Notice**
+
+This PR contains a `.pr/` directory with PR-specific documents. This directory will be **automatically removed** when the PR is approved.
+
+> For fork PRs: Manual removal is required before merging.
+
+[4] source=pr_comment author=all-hands-bot state=None
+## Risk and Safety Evaluation
+
+**[Overall PR] ⚠️ Risk Assessment: 🟡 MEDIUM**
+
+**Risk Classification Rationale:**
+
+This PR scores medium risk due to SDK coordination requirements, despite excellent code quality:
+
+**Low-risk factors (positive):**
+- ✅ **Pattern conformance**: Improves conformance by adopting the standard `SdkSectionPage` pattern used across other settings pages
+- ✅ **Security sensitivity**: No security-sensitive code touched
+- ✅ **Infrastructure dependencies**: No new external dependencies
+- ✅ **Blast radius**: Change is isolated to the verification settings UI component
+- ✅ **Code quality**: Reduces complexity from ~100 lines to ~50 lines by eliminating manual state management
+...[TRUNCATED]...
+
+[5] source=pr_comment author=neubig state=None
+@openhands fix merge conflicts
+
+[6] source=pr_comment author=openhands-ai state=None
+Final summary of new work since my last update:
+
+- [x] Resolved the merge conflict on `fix/app-1308-verification-view-toggle`
+- [x] Preserved the PR’s intended schema-driven verification settings rendering
+- [x] Kept the current `main`-branch route guard/org-default redirect behavior in `frontend/src/routes/verification-settings.tsx`
+- [x] Ran the requested frontend verification:
+  - `cd frontend && npm run test -- __tests__/routes/verification-settings.test.tsx __tests__/utils/sdk-settings-schema.test.ts`
+  - `cd frontend && npm run lint:fix && npm run build`
+- [x] Created and pushed the merge-resolution commit to the PR branch
+
+Conciseness:
+- [x] The new change was limited to merge-conflic
+...[TRUNCATED]...
+
+====================================================================================================
+Issue #13975: [Bug]: MCP server settings are lost when you save LLM settings
+====================================================================================================
+URL: https://github.com/OpenHands/OpenHands/issues/13975
+State: CLOSED
+Labels: ['bug', 'new-settings']
+Quality flags: []
+
+--------------------------------------------------------------------------------
+Completeness Score
+--------------------------------------------------------------------------------
+Total: 94 / 100
+Grade: A
+Decision: USE_FOR_RUNTIME_LEARNING
+Parts:
+  - problem: 20
+  - reproduction_context: 11
+  - pr_selection: 20
+  - solution_summary: 20
+  - feedback: 13
+  - cleanliness: 10
+
+--------------------------------------------------------------------------------
+Problem
+--------------------------------------------------------------------------------
+[Bug]: MCP server settings are lost when you save LLM settings
+
+MCP server settings are lost when you save LLM settings.
+
+--------------------------------------------------------------------------------
+Expected Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Actual Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Reproduction Steps
+--------------------------------------------------------------------------------
+1. Add some MCP server
+2. Make a change to the LLM settings and Save
+
+The MCP server has been lost
+
+https://github.com/user-attachments/assets/0ee407e3-4d60-41a1-9a8f-3fc23c8bc1de
+
+--------------------------------------------------------------------------------
+Selected PR
+--------------------------------------------------------------------------------
+selected_pr: 14033
+title: Remove agent from the LLM settings page
+merged_at: 2026-04-20T16:16:02Z
+selection_score: 23.0
+selection_reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:6.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Candidate PR Scores
+--------------------------------------------------------------------------------
+PR #14033: score=23.0 state=MERGED merged_at=2026-04-20T16:16:02Z
+  title: Remove agent from the LLM settings page
+  reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:6.0', 'temporal_score:2.0']
+PR #13977: score=11.0 state=CLOSED merged_at=None
+  title: Warn before resetting hidden SDK settings
+  reasons: ['closed_unmerged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:6.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Fix Summary
+--------------------------------------------------------------------------------
+remove the `agent` control from the LLM settings page and scope it to the `llm` section only; stop sending `agent` from the LLM page save payload; add a regression test that preserves existing `mcp_config` when saving the LLM page
+
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+  - frontend/__tests__/routes/llm-settings.test.tsx
+  - frontend/src/routes/llm-settings.tsx
+
+--------------------------------------------------------------------------------
+Tests
+--------------------------------------------------------------------------------
+  - - `cd frontend && npm run typecheck:staged`
+  - - `cd frontend && npm run test -- __tests__/routes/llm-settings.test.tsx __tests__/routes/mcp-settings.test.tsx`
+  - - `cd frontend && npm run lint:fix && npm run build`
+
+--------------------------------------------------------------------------------
+Feedback Count = 6
+--------------------------------------------------------------------------------
+
+[1] source=pr_review author=all-hands-bot state=COMMENTED
+🟡 **Acceptable** - Solid refactoring that solves a real problem with excellent test coverage. Minor suggestions for defensive programming.
+
+[2] source=pr_review author=neubig state=COMMENTED
+[NO BODY]
+
+[3] source=pr_review author=neubig state=COMMENTED
+[NO BODY]
+
+[4] source=pr_review author=hieptl state=APPROVED
+Thank you! 🙏
+
+[5] source=pr_comment author=github-actions state=None
+<!-- pr-artifacts-notice -->
+📁 **PR Artifacts Notice**
+
+This PR contains a `.pr/` directory with PR-specific documents. This directory will be **automatically removed** when the PR is approved.
+
+> For fork PRs: Manual removal is required before merging.
+
+[6] source=pr_comment author=all-hands-bot state=None
+## Review Summary
+
+**[IMPROVEMENT OPPORTUNITIES]**
+- **Defensive Programming**: Consider keeping `tools` and `mcp_config` in `LLM_EXCLUDED_KEYS` to prevent misconfiguration
+- **User Experience**: Document where agent configuration has moved to help users find it
+
+**[TESTING]**
+✅ Excellent test coverage:
+- Regression test for preserving MCP settings when saving LLM page
+- Verification that agent field is not rendered or sent in payloads
+- Test approach is pragmatic (mocking backend preservation in frontend tests)
+
+**[RISK ASSESSMENT]**
+- **Overall PR**: ⚠️ Risk Assessment: 🟡 MEDIUM
+
+This is a user-facing change that removes the agent field from the LLM settings UI. While the change is well-te
+...[TRUNCATED]...
+
+====================================================================================================
+Issue #13982: [Bug]: MCP settings is not aligned properly to the left
+====================================================================================================
+URL: https://github.com/OpenHands/OpenHands/issues/13982
+State: CLOSED
+Labels: ['bug', 'new-settings']
+Quality flags: []
+
+--------------------------------------------------------------------------------
+Completeness Score
+--------------------------------------------------------------------------------
+Total: 91 / 100
+Grade: A
+Decision: USE_FOR_RUNTIME_LEARNING
+Parts:
+  - problem: 20
+  - reproduction_context: 11
+  - pr_selection: 20
+  - solution_summary: 20
+  - feedback: 10
+  - cleanliness: 10
+
+--------------------------------------------------------------------------------
+Problem
+--------------------------------------------------------------------------------
+[Bug]: MCP settings is not aligned properly to the left
+
+I do not know if this is new from the new settings but the MCP settings is not aligned properly to the left.
+
+<img width="1688" height="512" alt="Image" src="https://github.com/user-attachments/assets/2cb71d4e-c8cf-4860-9fdf-bc29dd26eb7a" />
+
+--------------------------------------------------------------------------------
+Expected Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Actual Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Reproduction Steps
+--------------------------------------------------------------------------------
+1. Go to the MCP settings
+
+--------------------------------------------------------------------------------
+Selected PR
+--------------------------------------------------------------------------------
+selected_pr: 13996
+title: fix(settings): align MCP settings layout with other settings pages
+merged_at: 2026-04-18T11:19:49Z
+selection_score: 19.4
+selection_reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:2.4', 'changed_files_match_issue_domain:4.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Candidate PR Scores
+--------------------------------------------------------------------------------
+PR #13996: score=19.4 state=MERGED merged_at=2026-04-18T11:19:49Z
+  title: fix(settings): align MCP settings layout with other settings pages
+  reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:2.4', 'changed_files_match_issue_domain:4.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Fix Summary
+--------------------------------------------------------------------------------
+fix(settings): align MCP settings layout with other settings pages
+
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+  - frontend/src/routes/mcp-settings.tsx
+
+--------------------------------------------------------------------------------
+Tests
+--------------------------------------------------------------------------------
+  - - Verified the MCP settings list view now starts from the left edge, matching `secrets-settings` and other settings pages.
+  - - No functional behavior was changed; only the layout class was adjusted.
+
+--------------------------------------------------------------------------------
+Feedback Count = 2
+--------------------------------------------------------------------------------
+
+[1] source=pr_review author=neubig state=CHANGES_REQUESTED
+Thanks @octo-patch please post a screenshot of the pages before and after the change so we can review the design.
+
+[2] source=pr_review author=neubig state=APPROVED
+Thank you for the contribution @octo-patch ! For next contribution it'd be great if you could attach a screenshot to make it easier for us to QA.
+
+====================================================================================================
+Issue #13984: [Bug]: Cannot get GPT 5.4 with OpenAI provider to work
+====================================================================================================
+URL: https://github.com/OpenHands/OpenHands/issues/13984
+State: CLOSED
+Labels: ['bug', 'new-settings']
+Quality flags: []
+
+--------------------------------------------------------------------------------
+Completeness Score
+--------------------------------------------------------------------------------
+Total: 91 / 100
+Grade: A
+Decision: USE_FOR_RUNTIME_LEARNING
+Parts:
+  - problem: 20
+  - reproduction_context: 11
+  - pr_selection: 18
+  - solution_summary: 20
+  - feedback: 12
+  - cleanliness: 10
+
+--------------------------------------------------------------------------------
+Problem
+--------------------------------------------------------------------------------
+[Bug]: Cannot get GPT 5.4 with OpenAI provider to work
+
+This MAY not be 100% issue as I can't confirm that my API key is valid but I always used this to check OpenAI models and it was working before.
+
+Essentially can't get OpenAI models to work.
+
+If this is not reproducible, then you can close.
+
+--------------------------------------------------------------------------------
+Expected Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Actual Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Reproduction Steps
+--------------------------------------------------------------------------------
+1. Pick any OpenAI model
+2. Start a conversation and prompt.
+
+<img width="764" height="463" alt="Image" src="https://github.com/user-attachments/assets/f22a423c-9920-47ac-94df-ef07452371ca" />
+
+And then when you start a conversation:
+
+<img width="939" height="784" alt="Image" src="https://github.com/user-attachments/assets/e2222d48-f906-4443-8865-eec27de0ea8e" />
+
+--------------------------------------------------------------------------------
+Selected PR
+--------------------------------------------------------------------------------
+selected_pr: 14184
+title: Release 1.7.0
+merged_at: 2026-05-01T14:49:58Z
+selection_score: 10.2
+selection_reasons: ['merged_pr', 'title_body_keyword_overlap:3.2', 'changed_files_match_issue_domain:2.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Candidate PR Scores
+--------------------------------------------------------------------------------
+PR #14184: score=10.2 state=MERGED merged_at=2026-05-01T14:49:58Z
+  title: Release 1.7.0
+  reasons: ['merged_pr', 'title_body_keyword_overlap:3.2', 'changed_files_match_issue_domain:2.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Fix Summary
+--------------------------------------------------------------------------------
+Release 1.7.0
+
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+  - frontend/package-lock.json
+  - frontend/package.json
+  - pyproject.toml
+
+--------------------------------------------------------------------------------
+Tests
+--------------------------------------------------------------------------------
+  - <!--
+  - Required. Share the steps for the reviewer to be able to test your PR. e.g. You can test by running `npm install` then `npm build dev`.
+  - If you could not test this, say why.
+  - -->
+  - ```
+  - docker run -it --rm --pull=always \
+  - -e AGENT_SERVER_IMAGE_REPOSITORY=ghcr.io/openhands/agent-server \
+  - -e AGENT_SERVER_IMAGE_TAG=1.19.1-python \
+  - -e LOG_ALL_EVENTS=true \
+  - -v /var/run/docker.sock:/var/run/docker.sock \
+  - -v ~/.openhands:/.openhands \
+  - -p 3000:3000 \
+  - --add-host host.docker.internal:host-gateway \
+  - --name openhands-app \
+  - docker.openhands.dev/openhands/openhands:c5aca7f1623f6643959f83d9ffd4e9b6944c41e8
+  - ```
+
+--------------------------------------------------------------------------------
+Feedback Count = 6
+--------------------------------------------------------------------------------
+
+[1] source=issue_comment author=neubig state=None
+I wasn't able to reproduce, so closing. Will reopen if anyone else reports.
+
+[2] source=issue_comment author=juanmichelini state=None
+Not able to reproduce
+
+<img width="1101" height="696" alt="Image" src="https://github.com/user-attachments/assets/aaecf7dc-6afb-44ab-9a63-3a766fc4bf80" />
+
+<img width="773" height="303" alt="Image" src="https://github.com/user-attachments/assets/2c0214f8-a0c3-4507-a971-cbcdd80f473e" />
+
+[3] source=issue_comment author=juanmichelini state=None
+@mamoodi can you create a new api key and try again?
+
+[4] source=issue_comment author=mamoodi state=None
+@juanmichelini this is my bad. I updated the issue description. It's not using the OpenHands OpenAI model but using OpenAI directly that causes this error.
+
+[5] source=issue_comment author=juanmichelini state=None
+okay, now I was able to reproduce it
+
+<img width="779" height="759" alt="Image" src="https://github.com/user-attachments/assets/a9abeaf0-1b07-428e-94e6-5cda38bf8592" />
+
+notice that the same key with 
+
+curl https://api.openai.com/v1/responses \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"gpt-5.4","input":"Say hello in one short sentence."}'
+
+works fine
+
+[6] source=pr_review author=all-hands-bot state=APPROVED
+🟢 **Good taste** - Clean version bump for release 1.7.0.
+
+**[MINOR NOTE]**
+The "How to Test" section in the PR description references commit `c5aca7f1623f6643959f83d9ffd4e9b6944c41e8`, but the PR head is `43bd8d1`. Consider updating the test command to use the current commit for consistency, though the "To run this PR locally" section already has the correct commit.
+
+**[RISK ASSESSMENT]**
+- [Overall PR] ⚠️ Risk Assessment: 🟢 **LOW**
+
+This PR only updates version metadata in three files (frontend package.json/lock, and root pyproject.toml) from 1.6.0 to 1.7.0. No code logic, dependencies, or APIs are modified. The changes are mechanical and pose no risk to functionality, backward compatibilit
+...[TRUNCATED]...
+
+====================================================================================================
+Issue #14248: [Bug] hardcoded English strings in settings not using translation system (i18n)
+====================================================================================================
+URL: https://github.com/OpenHands/OpenHands/issues/14248
+State: CLOSED
+Labels: []
+Quality flags: []
+
+--------------------------------------------------------------------------------
+Completeness Score
+--------------------------------------------------------------------------------
+Total: 91 / 100
+Grade: A
+Decision: USE_FOR_RUNTIME_LEARNING
+Parts:
+  - problem: 20
+  - reproduction_context: 8
+  - pr_selection: 20
+  - solution_summary: 20
+  - feedback: 13
+  - cleanliness: 10
+
+--------------------------------------------------------------------------------
+Problem
+--------------------------------------------------------------------------------
+[Bug] hardcoded English strings in settings not using translation system (i18n)
+
+Three user-visible strings in the settings UI are hardcoded plain English literals instead of going through the `useTranslation` / `i18n` system. They will always display in English regardless of the user's selected language.
+
+## Affected files and lines
+
+### `frontend/src/routes/app-settings.tsx`
+
+| Line | Field | Hardcoded value |
+|------|-------|-----------------|
+| 327 | `placeholder` on git username input | `"Username for git commits"` |
+| 337 | `placeholder` on git email input | `"Email for git commits"` |
+
+The *labels* for these same inputs correctly use `t(I18nKey.SETTINGS$GIT_USERNAME)` and `t(I18nKey.SETTINGS$GIT_EMAIL)` (lines 324, 334) — only the placeholder text was missed.
+
+### `frontend/src/components/features/settings/mcp-settings/mcp-server-form.tsx`
+
+| Line | Field | Hardcoded value |
+|------|-------|-----------------|
+| 328 | `label` on the shttp timeout input | `"Timeout (seconds)"` |
+
+No dedicated i18n key currently exists for this label (only error-message keys like `SETTINGS$MCP_ERROR_TIMEOUT_INVALID_NUMBER` exist).
+
+--------------------------------------------------------------------------------
+Expected Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Actual Behavior
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Reproduction Steps
+--------------------------------------------------------------------------------
+**Git placeholders:**
+1. Go to `/settings`
+2. Change **Language** to any non-English language (e.g. French, German, Japanese) and save
+3. Reload the page and scroll to the **Git Settings** section
+4. **Expected:** placeholder text is translated
+5. **Actual:** placeholder reads `"Username for git commits"` / `"Email for git commits"` in English
+
+**MCP timeout label:**
+1. Go to `/settings` → MCP Servers → **Add server**
+2. Select server type **shttp**
+3. **Expected:** timeout field label is translated
+4. **Actual:** label always reads `"Timeout (seconds)"` in English
+
+## Fix
+
+- Add i18n keys (e.g. `SETTINGS$GIT_USERNAME_PLACEHOLDER`, `SETTINGS$GIT_EMAIL_PLACEHOLDER`, `SETTINGS$MCP_TIMEOUT_LABEL`) with translations, and replace the hardcoded strings with `t(I18nKey.*)` calls.
+- Alternatively reuse existing keys if semantically appropriate.
+
+## Screenshot
+
+<img width="722" height="552" alt="Image" src="https://github.com/user-attachments/assets/51bf829d-e753-4ae7-8453-af8fbaa83c1d" />
+
+--------------------------------------------------------------------------------
+Selected PR
+--------------------------------------------------------------------------------
+selected_pr: 14286
+title: fix(i18n): translate hardcoded settings strings
+merged_at: 2026-05-05T14:03:40Z
+selection_score: 21.0
+selection_reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:4.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Candidate PR Scores
+--------------------------------------------------------------------------------
+PR #14286: score=21.0 state=MERGED merged_at=2026-05-05T14:03:40Z
+  title: fix(i18n): translate hardcoded settings strings
+  reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'changed_files_match_issue_domain:4.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Fix Summary
+--------------------------------------------------------------------------------
+Add three i18n keys (SETTINGS$GIT_USERNAME_PLACEHOLDER, SETTINGS$GIT_EMAIL_PLACEHOLDER, SETTINGS$MCP_TIMEOUT_LABEL) with translations for all 15 supported locales.; Replace the hardcoded English literals in frontend/src/routes/app-settings.tsx (git username/email placeholders) and frontend/src/components/features/settings/mcp-settings/mcp-server-form.tsx (shttp timeout label) with t(I18nKey.*) calls.; Timeout-label translations follow the same wording the project already uses in SETTINGS$MCP_ERROR_TIMEOUT_INVALID_NUMBER for cross-key consistency.
+
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+  - frontend/src/components/features/settings/mcp-settings/mcp-server-form.tsx
+  - frontend/src/i18n/declaration.ts
+  - frontend/src/i18n/translation.json
+  - frontend/src/routes/app-settings.tsx
+
+--------------------------------------------------------------------------------
+Tests
+--------------------------------------------------------------------------------
+  - - Switch language to a non-English locale in /settings; the Git Username and Git Email placeholders render in the selected language.
+  - - In /settings → MCP Servers → Add server → server type shttp, the Timeout field label renders in the selected language.
+  - - npm run typecheck passes.
+  - - npm run lint passes.
+
+--------------------------------------------------------------------------------
+Feedback Count = 4
+--------------------------------------------------------------------------------
+
+[1] source=pr_review author=all-hands-bot state=APPROVED
+🟢 **Good taste** - Clean i18n fix that follows all best practices.
+
+**[RISK ASSESSMENT]**
+- [Overall PR] ⚠️ Risk Assessment: 🟢 LOW
+Only changes presentation text with proper i18n translations. No logic changes, follows established patterns, all 15 locales properly updated.
+
+**VERDICT:**
+✅ **Worth merging**: Solves real i18n gap with zero architectural concerns.
+
+**KEY INSIGHT:**
+Textbook i18n implementation - adds keys to enum, translations to JSON, uses keys directly without dynamic construction.
+
+[2] source=pr_review author=mamoodi state=APPROVED
+[NO BODY]
+
+[3] source=pr_comment author=VascoSch92 state=None
+@mamoodi Could you give a look if you have time?
+
+[4] source=pr_comment author=VascoSch92 state=None
+@mamoodi I don't have write permissions :-) can you merge for me? Thanks
+
+====================================================================================================
+Issue #14591: [Bug]: Last version of package miss standard-aifc in pyproject.toml
+====================================================================================================
+URL: https://github.com/OpenHands/OpenHands/issues/14591
+State: CLOSED
+Labels: ['bug']
+Quality flags: []
+
+--------------------------------------------------------------------------------
+Completeness Score
+--------------------------------------------------------------------------------
+Total: 91 / 100
+Grade: A
+Decision: USE_FOR_RUNTIME_LEARNING
+Parts:
+  - problem: 20
+  - reproduction_context: 13
+  - pr_selection: 20
+  - solution_summary: 15
+  - feedback: 13
+  - cleanliness: 10
+
+--------------------------------------------------------------------------------
+Problem
+--------------------------------------------------------------------------------
+[Bug]: Last version of package miss standard-aifc in pyproject.toml
+
+It's missing the standard-aifc package as dependency in the pyproject.toml so the ```openhands serve``` doesn't work properly and raise an error ```ModuleNotFoundError: No module named 'aifc'``` which is actually right since it's not installed at the docker image creation.
+
+--------------------------------------------------------------------------------
+Expected Behavior
+--------------------------------------------------------------------------------
+```openhands serve``` commands should work and create the server listening on the default port.
+
+--------------------------------------------------------------------------------
+Actual Behavior
+--------------------------------------------------------------------------------
+```ModuleNotFoundError: No module named 'aifc'``` error message is shown and the docker command that failed.
+
+--------------------------------------------------------------------------------
+Reproduction Steps
+--------------------------------------------------------------------------------
+1. Install Openhands cli with ```uv tool install openhands --python 3.12```
+2. Run ```openhands serve```
+
+--------------------------------------------------------------------------------
+Selected PR
+--------------------------------------------------------------------------------
+selected_pr: 14593
+title: fix(logger): remove dead aifc pre-import block (alternative to #14592)
+merged_at: 2026-05-29T10:13:47Z
+selection_score: 17.0
+selection_reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Candidate PR Scores
+--------------------------------------------------------------------------------
+PR #14593: score=17.0 state=MERGED merged_at=2026-05-29T10:13:47Z
+  title: fix(logger): remove dead aifc pre-import block (alternative to #14592)
+  reasons: ['explicit_closing_reference', 'merged_pr', 'title_body_keyword_overlap:4.0', 'temporal_score:2.0']
+PR #14592: score=14.2 state=CLOSED merged_at=None
+  title: fix: add Python 3.13 aifc dependency
+  reasons: ['explicit_closing_reference', 'closed_unmerged_pr', 'title_body_keyword_overlap:3.2', 'changed_files_match_issue_domain:2.0', 'temporal_score:2.0']
+
+--------------------------------------------------------------------------------
+Fix Summary
+--------------------------------------------------------------------------------
+fix(logger): remove dead aifc pre-import block (alternative to #14592)
+
+--------------------------------------------------------------------------------
+Changed Files
+--------------------------------------------------------------------------------
+  - openhands/app_server/utils/logger.py
+
+--------------------------------------------------------------------------------
+Tests
+--------------------------------------------------------------------------------
+[EMPTY]
+
+--------------------------------------------------------------------------------
+Feedback Count = 6
+--------------------------------------------------------------------------------
+
+[1] source=pr_review author=all-hands-bot state=COMMENTED
+Clean, well-justified removal of dead code. The PR description provides compelling evidence (Docker verification, `grep` scan) that the `aifc` pre-import block was both non-functional on Python 3.13 and unnecessary because none of the packages it was guarding against (`speech_recognition`, `pydub`, etc.) are present in the published image. Removing dead code here is clearly preferable to the alternative of shipping a backport dependency solely to make a no-op block work.
+
+One optional follow-up observation is left as an inline comment on the remaining `pydub` warning filter.
+
+_This review was generated by an AI agent (OpenHands) on behalf of the user through OpenHands Automation. [View conve
+...[TRUNCATED]...
+
+[2] source=pr_review author=all-hands-bot state=COMMENTED
+## Code Review
+
+This is a correct and well-scoped fix for the `ModuleNotFoundError: No module named 'aifc'` crash on `openhands serve` (#14591). The PR description provides solid evidence — Docker image verification and a `grep` scan — that justifies the removal.
+
+**Why the removal is correct**
+
+The removed `with warnings.catch_warnings()` block had a subtle design flaw that made it doubly broken on Python 3.13:
+
+1. `warnings.catch_warnings()` / `warnings.simplefilter('ignore')` only suppress `Warning`-category messages via the `warnings` module. They have **no effect** on `ImportError` / `ModuleNotFoundError`, so the block would always raise unconditionally on Python 3.13 rather than silent
+...[TRUNCATED]...
+
+[3] source=pr_review author=enyst state=COMMENTED
+[NO BODY]
+
+[4] source=pr_review author=enyst state=APPROVED
+[NO BODY]
+
+[5] source=pr_comment author=github-actions state=None
+## Coverage report
+
+<img title="Coverage for the whole project is 27.11%. Previous coverage rate is not available, cannot report on evolution." src="https://img.shields.io/badge/Coverage-27%25-red.svg"> <img title="100% of the statement lines added by this PR are covered" src="https://img.shields.io/badge/PR%20Coverage-100%25-brightgreen.svg"><details><summary>Click to see where and how coverage changed</summary><table><thead>
+  <tr><th>File</th><th>Statements</th><th>Missing</th><th>Coverage</th><th>Coverage<br>(new stmts)</th><th>Lines missing</th></tr>
+</thead>
+<tbody><tr>
+<td colspan="6">&nbsp;&nbsp;<b>openhands/app_server/utils</b></td><tr>
+<td>&nbsp;&nbsp;<a href="https://github.com/Op
+...[TRUNCATED]...
+
+[6] source=pr_comment author=github-actions state=None
+<!-- pr-human-context-required -->
+👋 Thanks for opening this PR!
+
+Before review, please add a short note in the `HUMAN:` section at the top of the PR description telling maintainers, in your own words, what this PR does.
+
+Please put that note between `HUMAN:` and the `- [ ] A human has tested these changes.` checkbox.
+
+====================================================================================================
+Compact Summary
+====================================================================================================
+Issue #14419 | score=100 | grade=A | decision=USE_FOR_RUNTIME_LEARNING | selected_pr=14437 | title=[Bug]: OpenRouter configuration still appears to consume OpenHands credits
+Issue #13969 | score=96 | grade=A | decision=USE_FOR_RUNTIME_LEARNING | selected_pr=14000 | title=[Bug]: tavily settings gets reset when you go from advanced to basic
+Issue #14096 | score=96 | grade=A | decision=USE_FOR_RUNTIME_LEARNING | selected_pr=14097 | title=Integrations page is blank when GITHUB_APP_SLUG is not set (Replicated/self-hosted)
+Issue #14153 | score=96 | grade=A | decision=USE_FOR_RUNTIME_LEARNING | selected_pr=14155 | title=[Bug]: Cannot edit or remove integrations tokens from local GUI
+Issue #13971 | score=94 | grade=A | decision=USE_FOR_RUNTIME_LEARNING | selected_pr=13978 | title=[Bug]: Basic and Advanced for "Verification" is the same
+Issue #13975 | score=94 | grade=A | decision=USE_FOR_RUNTIME_LEARNING | selected_pr=14033 | title=[Bug]: MCP server settings are lost when you save LLM settings
+Issue #13982 | score=91 | grade=A | decision=USE_FOR_RUNTIME_LEARNING | selected_pr=13996 | title=[Bug]: MCP settings is not aligned properly to the left
+Issue #13984 | score=91 | grade=A | decision=USE_FOR_RUNTIME_LEARNING | selected_pr=14184 | title=[Bug]: Cannot get GPT 5.4 with OpenAI provider to work
+Issue #14248 | score=91 | grade=A | decision=USE_FOR_RUNTIME_LEARNING | selected_pr=14286 | title=[Bug] hardcoded English strings in settings not using translation system (i18n)
+Issue #14591 | score=91 | grade=A | decision=USE_FOR_RUNTIME_LEARNING | selected_pr=14593 | title=[Bug]: Last version of package miss standard-aifc in pyproject.toml
+
+[WRITE] data/reports/trajectory_review_summary.md

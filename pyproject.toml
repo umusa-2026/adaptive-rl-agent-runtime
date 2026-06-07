@@ -1,0 +1,26 @@
+[build-system]
+requires = [
+    "setuptools>=69",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adaptive-coding-runtime"
+version = "0.1.0"
+
+description = "RL-driven Adaptive Coding Runtime"
+
+requires-python = ">=3.11"
+
+[tool.setuptools]
+
+[tool.setuptools.packages.find]
+include = ["adaptive_runtime*"]
+
+exclude = [
+    "data*",
+    "external*",
+    "scripts*",
+    "tests*"
+]
