@@ -1,5 +1,7 @@
 # Adaptive RL Agent Runtime
 
+## Building Self-Improving and Self-Evolving Agent Runtimes through Trajectory Learning and Reinforcement Learning
+
 ## Learning to Improve Coding Agents from Trajectories
 
 Adaptive RL Agent Runtime is a research-oriented project that studies a fundamental question in modern AI systems:
@@ -322,16 +324,41 @@ This repository explores:
 
 ---
 
-# Author
+# Project Status
 
-Staff Software Engineer (Meta)
+Current Status:
 
-Background:
+- GitHub trajectory collection pipeline implemented
+- Trajectory parsing pipeline implemented
+- Memory retrieval agent implemented
+- Reflection agent implemented
+- Runtime evaluation implemented
+- Reward logging implemented
 
-* Machine Learning
-* Recommender Systems
-* Computer Vision
-* Multimodal AI
-* Large-Scale Production Systems
+Current Focus:
+
+- Runtime policy learning
+- Contextual bandit optimization
+- Multi-step runtime RL
+- Offline reinforcement learning
+- Self-evolving runtime architectures
+
+---
+
+# Long-Term Vision
+
+Build agent runtimes that continuously improve themselves through experience.
+
+Target capabilities:
+
+- Self-Correction
+- Self-Improvement
+- Self-Optimization
+- Self-Iteration
+- Self-Evolution
+
+Core research question:
+
+How can agents learn to improve themselves from trajectories?
 
 This repository is a personal research project exploring the future of AI agent runtimes and trajectory-driven self-improving systems.
