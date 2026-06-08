@@ -213,6 +213,8 @@ Build high-quality trajectory datasets.
 
 Status:
 
+Implemented
+In Progress
 In Progress
 
 ---
@@ -233,6 +235,8 @@ Examples:
 
 Status:
 
+Implemented
+In Progress
 Planned
 
 ---
@@ -247,6 +251,8 @@ Optimize sequences of runtime decisions.
 
 Status:
 
+Implemented
+In Progress
 Planned
 
 ---
@@ -261,6 +267,8 @@ Learn from historical trajectories without online interaction.
 
 Status:
 
+Implemented
+In Progress
 Planned
 
 ---
@@ -274,6 +282,10 @@ Goal:
 Allow the runtime to improve memory retrieval, reflection behavior, and runtime policies from accumulated experience.
 
 Status:
+
+Implemented
+In Progress
+Planned 
 
 Research Direction
 
@@ -301,7 +313,7 @@ The design is motivated by emerging industry directions in:
 
 ---
 
-# Technical Focus Areas
+# Knowledge Areas Covered
 
 This repository explores:
 
