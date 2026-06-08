@@ -359,6 +359,6 @@ Target capabilities:
 
 Core research question:
 
-How can agents learn to improve themselves from trajectories?
+- How can agents learn to improve themselves from trajectories?
 
-This repository is a personal research project exploring the future of AI agent runtimes and trajectory-driven self-improving systems.
+# This repository is a personal research project exploring the future of AI agent runtimes and trajectory-driven self-improving systems.
