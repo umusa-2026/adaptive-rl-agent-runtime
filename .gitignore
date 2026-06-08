@@ -1,13 +1,30 @@
-.venv/
+# Python
 __pycache__/
-*.pyc
-.DS_Store
+*.py[cod]
+*.so
 
+# Packaging
+*.egg-info/
+build/
+dist/
+
+# Virtual env
+.venv/
+venv/
+
+# Runtime data
 data/raw/
 data/processed/
-data/memory/
 data/runtime/
-external/
+data/memory/
 
+# Databases
 *.sqlite
+*.sqlite3
 *.db
+
+# MacOS
+.DS_Store
+
+# VSCode
+.vscode/external/

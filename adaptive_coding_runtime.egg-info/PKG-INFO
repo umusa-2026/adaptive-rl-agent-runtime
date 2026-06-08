@@ -1,5 +1,0 @@
-Metadata-Version: 2.4
-Name: adaptive-coding-runtime
-Version: 0.1.0
-Summary: RL-driven Adaptive Coding Runtime
-Requires-Python: >=3.11

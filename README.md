@@ -213,9 +213,7 @@ Build high-quality trajectory datasets.
 
 Status:
 
-Implemented
-In Progress
-In Progress
+Implemented/In Progress
 
 ---
 
@@ -235,9 +233,7 @@ Examples:
 
 Status:
 
-Implemented
-In Progress
-Planned
+next
 
 ---
 
@@ -251,9 +247,7 @@ Optimize sequences of runtime decisions.
 
 Status:
 
-Implemented
-In Progress
-Planned
+Planned / Research Direction
 
 ---
 
@@ -267,9 +261,7 @@ Learn from historical trajectories without online interaction.
 
 Status:
 
-Implemented
-In Progress
-Planned
+Planned / Research Direction
 
 ---
 
@@ -283,11 +275,7 @@ Allow the runtime to improve memory retrieval, reflection behavior, and runtime 
 
 Status:
 
-Implemented
-In Progress
-Planned 
-
-Research Direction
+Planned / Research Direction
 
 ---
 

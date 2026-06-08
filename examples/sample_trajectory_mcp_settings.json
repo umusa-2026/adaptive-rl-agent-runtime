@@ -1,0 +1,17 @@
+{
+  "trajectory_id": "example-mcp-settings-001",
+  "query": "MCP server settings are lost when saving LLM settings",
+  "planner_decision": {
+    "action": "memory_then_reflection",
+    "confidence": 0.8
+  },
+  "reflection_report": {
+    "passed": true,
+    "score": 1.0
+  },
+  "evaluation": {
+    "accepted": true,
+    "reward": 1.95
+  },
+  "lesson": "For settings bugs, scope save payloads to fields owned by the current page and preserve unrelated settings such as mcp_config."
+}
