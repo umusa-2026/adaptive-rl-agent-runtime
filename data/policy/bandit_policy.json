@@ -1,0 +1,27 @@
+{
+  "epsilon": 0.1,
+  "table": {
+    "len=medium|mem=very_high|lessons=1|bug=1|settings=1|frontend=0|security=0": {
+      "direct": {
+        "count": 1,
+        "total_reward": -1.6501
+      },
+      "memory_only": {
+        "count": 1,
+        "total_reward": 0.6199
+      },
+      "memory_then_reflection": {
+        "count": 1,
+        "total_reward": 1.95
+      },
+      "inspect_files_then_reflect": {
+        "count": 1,
+        "total_reward": 1.93
+      },
+      "ask_clarification": {
+        "count": 0,
+        "total_reward": 0.0
+      }
+    }
+  }
+}

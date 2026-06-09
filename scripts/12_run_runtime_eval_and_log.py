@@ -21,6 +21,8 @@ def main() -> None:
     parser.add_argument("--turns", type=int, default=1)
     parser.add_argument("--cost-units", type=float, default=1.0)
     parser.add_argument("--log-path", default="data/runtime/trajectories.jsonl")
+    parser.add_argument("--data-source", default="synthetic", choices=["synthetic", "github_proxy", "human_feedback", "benchmark_eval"])
+    parser.add_argument("--label-confidence", type=float, default=0.5)
     args = parser.parse_args()
 
     start = time.time()
@@ -60,6 +62,8 @@ def main() -> None:
             "turns": args.turns,
             "cost_units": args.cost_units,
         },
+        "data_source": args.data_source,
+        "label_confidence": args.label_confidence,
     }
 
     logger = TrajectoryLogger(args.log_path)
