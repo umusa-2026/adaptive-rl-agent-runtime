@@ -233,8 +233,25 @@ Examples:
 
 Status:
 
-next
+### Level 2 Milestone: Contextual Bandit Policy Learning
 
+The runtime can now:
+
+- Compare alternative runtime actions
+- Log action-specific rewards
+- Train a contextual bandit policy from trajectories
+- Select actions based on observed reward history
+
+Example action comparison:
+
+| Action | Reward |
+|----------|----------|
+| direct | -1.65 |
+| memory_only | 0.62 |
+| memory_then_reflection | 1.95 |
+| inspect_files_then_reflect | 1.93 |
+
+The learned policy selected `memory_then_reflection` as the highest-value action for the evaluated settings-debugging context.
 ---
 
 ## Level 3
