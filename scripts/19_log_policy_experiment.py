@@ -9,6 +9,7 @@ from adaptive_runtime.agents.memory import MemoryAgent
 from adaptive_runtime.agents.reflection import ReflectionAgent
 from adaptive_runtime.agents.evaluator import EvaluatorAgent
 from adaptive_runtime.storage.trajectory_logger import TrajectoryLogger
+from adaptive_runtime.storage.lesson_usage_tracker import LessonUsageTracker
 
 
 ACTIONS = [
@@ -20,16 +21,22 @@ ACTIONS = [
 ]
 
 
-def build_manual_decision(action: str, lesson_count: int, top_memory_score: float) -> dict:
+def build_manual_decision(
+    action: str,
+    lesson_count: int,
+    top_memory_score: float,
+) -> dict:
     return {
         "action": action,
         "source": "manual_policy_experiment",
-        "need_memory": action in [
+        "need_memory": action
+        in [
             "memory_only",
             "memory_then_reflection",
             "inspect_files_then_reflect",
         ],
-        "need_reflection": action in [
+        "need_reflection": action
+        in [
             "memory_then_reflection",
             "inspect_files_then_reflect",
         ],
@@ -69,23 +76,35 @@ def main() -> None:
     parser.add_argument("--label-confidence", type=float, default=0.5)
     parser.add_argument("--sqlite", default="data/memory/lessons.sqlite")
     parser.add_argument("--top-k", type=int, default=5)
-    parser.add_argument("--log-path", default="data/runtime/policy_experiments.jsonl")
+
+    parser.add_argument(
+        "--log-path",
+        default="data/runtime/policy_experiments.jsonl",
+    )
+
+    parser.add_argument(
+        "--lesson-usage-path",
+        default="data/runtime/lesson_usage.jsonl",
+    )
 
     args = parser.parse_args()
 
     start = time.time()
 
+    # 1. Retrieve memory lessons.
     memory = MemoryAgent.from_sqlite(args.sqlite)
     lessons = memory.retrieve(args.query, top_k=args.top_k)
 
     top_memory_score = lessons[0]["score"] if lessons else 0.0
 
+    # 2. Build manual policy decision.
     planner_decision = build_manual_decision(
         action=args.action,
         lesson_count=len(lessons),
         top_memory_score=top_memory_score,
     )
 
+    # 3. Run reflection.
     reflection = ReflectionAgent()
     reflection_report = reflection.reflect(
         query=args.query,
@@ -98,6 +117,7 @@ def main() -> None:
 
     latency_sec = time.time() - start
 
+    # 4. Evaluate reward.
     evaluator = EvaluatorAgent()
     evaluation = evaluator.evaluate(
         reflection_report=reflection_dict,
@@ -109,6 +129,7 @@ def main() -> None:
 
     evaluation_dict = EvaluatorAgent.to_dict(evaluation)
 
+    # 5. Build trajectory record.
     record = {
         "query": args.query,
         "draft_answer": args.draft,
@@ -126,9 +147,27 @@ def main() -> None:
         "experiment_type": "manual_policy_action_comparison",
     }
 
+    # 6. Log trajectory.
     logger = TrajectoryLogger(args.log_path)
     trajectory_id = logger.log(record)
 
+    # 7. Log lesson usage events.
+    applied_lesson_ids = reflection_dict.get("applied_lessons", [])
+
+    usage_tracker = LessonUsageTracker(args.lesson_usage_path)
+    usage_count = usage_tracker.log_many(
+        trajectory_id=trajectory_id,
+        query=args.query,
+        action=args.action,
+        retrieved_lessons=lessons,
+        applied_lesson_ids=applied_lesson_ids,
+        reward=evaluation_dict["reward"],
+        reflection_passed=reflection_dict["passed"],
+        data_source=args.data_source,
+        label_confidence=args.label_confidence,
+    )
+
+    # 8. Print result.
     print("\n=== Query ===")
     print(args.query)
 
@@ -147,6 +186,10 @@ def main() -> None:
     print("\n=== Logged Trajectory ===")
     print(f"trajectory_id: {trajectory_id}")
     print(f"path: {args.log_path}")
+
+    print("\n=== Lesson Usage Tracking ===")
+    print(f"lesson_usage_events: {usage_count}")
+    print(f"path: {args.lesson_usage_path}")
 
 
 if __name__ == "__main__":
