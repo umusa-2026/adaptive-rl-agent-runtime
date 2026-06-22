@@ -39,7 +39,8 @@ def main() -> None:
         lesson_id = row.get("lesson_id")
         reward = float(row.get("reward", 0.0))
         applied = bool(row.get("applied"))
-        success = bool(row.get("reflection_passed")) and reward > 0
+        # success = bool(row.get("reflection_passed")) and reward > 0
+        success = applied and bool(row.get("reflection_passed")) and reward > 0
 
         weight = args.applied_weight if applied else args.retrieved_only_weight
 
